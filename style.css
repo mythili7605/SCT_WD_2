@@ -1,0 +1,311 @@
+:root {
+    --bg-primary: #0a0b10;
+    --bg-card: rgba(20, 21, 33, 0.6);
+    --border-color: rgba(255, 255, 255, 0.07);
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    
+    --color-start: #10b981;
+    --color-start-glow: rgba(16, 185, 129, 0.3);
+    --color-pause: #f59e0b;
+    --color-pause-glow: rgba(245, 158, 11, 0.3);
+    --color-lap: #3b82f6;
+    --color-lap-glow: rgba(59, 130, 246, 0.3);
+    --color-reset: #ef4444;
+    --color-reset-glow: rgba(239, 68, 68, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background decorative glowing circles */
+.background-decor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+}
+
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #4f46e5 0%, #312e81 100%);
+    top: -50px;
+    left: -50px;
+    animation: floating 8s infinite alternate ease-in-out;
+}
+
+.circle-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #ec4899 0%, #831843 100%);
+    bottom: -100px;
+    right: -100px;
+    animation: floating 12s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes floating {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(50px, 50px) scale(1.1);
+    }
+}
+
+/* Glassmorphism Container */
+.container {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 40px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(79, 70, 229, 0.1);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+header {
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 6px;
+    color: #ffffff;
+    background: linear-gradient(to right, #ffffff, #9ca3af);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.glow-indicator {
+    height: 2px;
+    width: 40px;
+    background: linear-gradient(90deg, transparent, #6366f1, transparent);
+    margin: 8px auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 8px #6366f1;
+}
+
+/* Time Display */
+.display-container {
+    background: rgba(10, 11, 16, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    width: 100%;
+    padding: 30px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+}
+
+#display {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 4rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1),
+                 0 0 30px rgba(99, 102, 241, 0.2);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: baseline;
+}
+
+#display span.milliseconds {
+    font-size: 2.2rem;
+    color: #818cf8;
+    margin-left: 2px;
+}
+
+/* Controls / Buttons */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+button {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+}
+
+button svg {
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Active buttons styling */
+#start {
+    border-color: rgba(16, 185, 129, 0.3);
+}
+#start:hover {
+    background: var(--color-start);
+    color: #ffffff;
+    border-color: var(--color-start);
+    box-shadow: 0 8px 25px -4px var(--color-start-glow);
+}
+
+#pause {
+    border-color: rgba(245, 158, 11, 0.3);
+}
+#pause:hover {
+    background: var(--color-pause);
+    color: #ffffff;
+    border-color: var(--color-pause);
+    box-shadow: 0 8px 25px -4px var(--color-pause-glow);
+}
+
+#lap {
+    border-color: rgba(59, 130, 246, 0.3);
+}
+#lap:hover {
+    background: var(--color-lap);
+    color: #ffffff;
+    border-color: var(--color-lap);
+    box-shadow: 0 8px 25px -4px var(--color-lap-glow);
+}
+
+#reset {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+#reset:hover {
+    background: var(--color-reset);
+    color: #ffffff;
+    border-color: var(--color-reset);
+    box-shadow: 0 8px 25px -4px var(--color-reset-glow);
+}
+
+/* Laps Section */
+.laps-container {
+    width: 100%;
+    max-height: 180px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+}
+
+.laps-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    padding: 0 10px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+#laps {
+    list-style: none;
+    overflow-y: auto;
+    max-height: 150px;
+    padding-right: 5px;
+}
+
+/* Custom Scrollbar */
+#laps::-webkit-scrollbar {
+    width: 4px;
+}
+#laps::-webkit-scrollbar-track {
+    background: transparent;
+}
+#laps::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+#laps::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#laps li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    font-size: 0.95rem;
+    font-family: 'Share Tech Mono', monospace;
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+#laps li::before {
+    content: "LAP " attr(data-index);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
