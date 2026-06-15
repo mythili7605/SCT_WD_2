@@ -1,6 +1,8 @@
 # SCT_WD_2
 Stopwatch Web Application
 
+🚀 **Live Preview:** [https://sct-wd-2-six-tau.vercel.app](https://sct-wd-2-six-tau.vercel.app)
+
 Overview
 
 This is a simple Stopwatch Web Application built using HTML, CSS, and Vanilla JavaScript. The application allows users to accurately measure time intervals with features such as start, pause, reset, and lap recording.
